@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Products.css";
+import { useCart } from "./CartContext";
 
-export const Products = () => {
+export const Products = ({handleAddToCart}) => {
+  const { addToCart } = useCart();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,26 +38,30 @@ export const Products = () => {
   return (
     <div>
       {data.map((product) => (
-        <Link to={`/products/${product.id}`} key={product.id} className="product-link">
-          <div className="product">
-            <img src={product.image} alt={product.title} />
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>Category: {product.category}</p>
-            <button className="add-to-cart-button">Add to Cart</button>
-            <div className="rating">
-              {/*rating is between 1 and 5 */}
-              {Array.from({ length: product.rating }, (_, index) => (
-                <span key={index} className="star-emoji">⭐</span>
-              ))}
-            </div>
+        <div key={product.id} className="product">
+          <Link to={`/products/${product.id}`} className="product-link">
+            <img className="ProductImage" src={product.image} alt={product.title} />
+          </Link>
+          <h2>
+            <Link to={`/products/${product.id}`} className="product-title-link">
+              {product.title}
+            </Link>
+          </h2>
+          <p>{product.description}</p>
+          <p>Price: ${product.price}</p>
+          <p>Category: {product.category}</p>
+          <button className="add-to-cart-button" onClick={() => handleAddToCart(product)}>
+            Add to Cart
+          </button>
+          <div className="rating">
+            {Array.from({ length: product.rating }, (_, index) => (
+              <span key={index} className="star-emoji">⭐</span>
+            ))}
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
 };
 
 export default Products;
-

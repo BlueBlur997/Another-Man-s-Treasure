@@ -1,12 +1,18 @@
-/* Products.css */
+body {
+  background-color: black;
+}
 
-/* Existing styles for .product */
 .product {
   border: 1px solid #ccc;
-  padding: 10px;
+  /* padding: 10px;
   margin: 20px;
-  width: 300px;
-  display: inline-block;
+  width: 50px; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin: auto;
+  max-width: 1200px;
   text-align: center;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -32,7 +38,7 @@
   color: #007bff;
 }
 
-/* New styles for .add-to-cart-button using Bootstrap classes */
+
 .add-to-cart-button {
   background-color: #007bff;
   color: #fff;
@@ -47,7 +53,7 @@
   background-color: #0056b3;
 }
 
-/* New styles for .star-rating and .star-emoji using Bootstrap classes */
+
 .star-rating {
   font-size: 20px;
   margin-top: 5px;
@@ -56,4 +62,3 @@
 .star-emoji {
   color: #ffc107;
 }
-
