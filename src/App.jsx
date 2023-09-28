@@ -5,6 +5,7 @@ import Products from './Components/Products';
 import SignIn from './Components/SignIn';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
+import Checkout from './Components/Checkout';
 import LogOut from './Components/LogOut';
 import { SingleProduct } from './Components/SingleProduct';
 
@@ -23,6 +24,18 @@ function App() {
   const handleRemove = (product) => {
     const newProducts = cart.filter(item => item.id !== product.id)
     setCart(newProducts);
+  };
+
+  const updateCartProduct = (ProductId, newQuantity) => {
+    // Find the item in the cart by itemId and update its quantity
+    const updatedCart = cart.map((product) => {
+      if (item.id === productId) {
+        return { ...product, quantity: newQuantity };
+      }
+      return product;
+    });
+
+    setCart(updatedCart);
   };
   
   useEffect(() => {
@@ -43,8 +56,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Products" element={<Products handleAddToCart={handleAddToCart} />} />
-          <Route path="/Cart" element={<Cart cart={cart} handleRemove={handleRemove} />} />
+          <Route path="/Cart" element={<Cart cart={cart} handleRemove={handleRemove} updateCartProduct={updateCartProduct} />} />
           <Route path="/SignIn" element={<SignIn setToken={setToken} />} />
+          <Route path="/Checkout" element={<Checkout />} />
           <Route path="/products/:id" element={<SingleProduct />} />
         </Routes>
       </div>

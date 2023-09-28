@@ -1,15 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
-// import { useCart } from "./CartContext";
 
-function Cart({cart, handleRemove}) {
-  // Step 1: Use the useCart hook to access the cart state and functions
-//   const { cart, updateCartItem, removeCartItem } = useCart();
+
+function Cart({cart, handleRemove, updateCartProduct}) {
+  const navigate = useNavigate();
+
 
   const calculateTotal = () => {
     if (!cart || !Array.isArray(cart)) {
       return 0;
     }
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, product) => total + product.price * product.quantity, 0);
+  };
+
+  const handleProceedToCheckout = () => {
+    // Navigate to the Checkout page
+    navigate("/checkout", { state: { cart } });
   };
 
   return (
@@ -19,31 +25,32 @@ function Cart({cart, handleRemove}) {
         <p>Your cart is empty.</p>
       ) : (
         <div>
-          {cart.map((item) => (
-            <div key={item.id} className="cart-item">
-              <p>{item.name}</p>
-              <p>Price: ${item.price}</p>
-              <p>Quantity: {item.quantity}</p>
+          {cart.map((product) => (
+            <div key={product.id} className="cart-product">
+              <p>{product.title}</p>
+              <img className="ProductImage" src={product.image} alt={product.title} height={'200px'} />
+              <p>Price: ${product.price}</p>
+              <p>Quantity: {product.quantity}</p>
               
-              {/* Update item quantity */}
+              {/* Update product quantity */}
               <button
                 className="update-button"
-                onClick={() => updateCartItem(item.id, item.quantity + 1)}
+                onClick={() => updateCartproduct(product.id, product.quantity + 1)}
               >
                 +1
               </button>
               <button
                 className="update-button"
-                onClick={() => updateCartItem(item.id, item.quantity - 1)}
-                disabled={item.quantity === 1} // Disable if quantity is 1
+                onClick={() => updateCartproduct(product.id, product.quantity - 1)}
+                disabled={product.quantity === 1} // Disable if quantity is 1
               >
                 -1
               </button>
               
-              {/* Remove item */}
+              {/* Remove product */}
               <button
                 className="remove-button"
-                onClick={() => handleRemove(item)}
+                onClick={() => handleRemove(product)}
               >
                 Remove
               </button>
@@ -52,7 +59,7 @@ function Cart({cart, handleRemove}) {
           <div className="cart-total">
             <h3>Total: ${calculateTotal().toFixed(2)}</h3>
           </div>
-          <button className="checkout-button">Proceed to Checkout</button>
+          <button className="checkout-button" onClick={handleProceedToCheckout}>Proceed to Checkout</button>
         </div>
       )}
     </div>
