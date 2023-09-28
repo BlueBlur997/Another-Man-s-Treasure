@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import myGif from '/home/blueblur997/CourseWork/Capstone-1/Another-Man-s-Treasure/kid-sonic-the-hedgehog.gif';
+import "./Home.css";
 
 const Home = () => {
   return (

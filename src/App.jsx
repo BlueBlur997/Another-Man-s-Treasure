@@ -59,7 +59,7 @@ function App() {
           <Route path="/Cart" element={<Cart cart={cart} handleRemove={handleRemove} updateCartProduct={updateCartProduct} />} />
           <Route path="/SignIn" element={<SignIn setToken={setToken} />} />
           <Route path="/Checkout" element={<Checkout />} />
-          <Route path="/products/:id" element={<SingleProduct />} />
+          <Route path="/products/:id" element={<SingleProduct handleAddToCart={handleAddToCart} />} />
         </Routes>
       </div>
     </main>

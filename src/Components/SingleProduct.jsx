@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useNavigate } from "react";
 import { useParams } from "react-router-dom";
 
-export const SingleProduct = () => {
+
+export const SingleProduct = ({handleAddToCart}) => {
   const { id } = useParams();
+  const [data, setData] = useState([]);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     async function fetchProduct() {
@@ -40,6 +43,9 @@ export const SingleProduct = () => {
       <p>{product.description}</p>
       <p>Price: ${product.price}</p>
       <p>Category: {product.category}</p>
+        <button className="add-to-cart-button" onClick={() => handleAddToCart(product)}>
+            Add to Cart
+      </button>
     </div>
   );
 };

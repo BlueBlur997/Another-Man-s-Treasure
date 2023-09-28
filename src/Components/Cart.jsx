@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
-
-function Cart({cart, handleRemove, updateCartProduct}) {
+function Cart({ cart, handleRemove, updateCartProduct }) {
   const navigate = useNavigate();
-
 
   const calculateTotal = () => {
     if (!cart || !Array.isArray(cart)) {
@@ -14,7 +12,7 @@ function Cart({cart, handleRemove, updateCartProduct}) {
   };
 
   const handleProceedToCheckout = () => {
-    // Navigate to the Checkout page
+    // Navigate checkout 
     navigate("/checkout", { state: { cart } });
   };
 
@@ -31,22 +29,22 @@ function Cart({cart, handleRemove, updateCartProduct}) {
               <img className="ProductImage" src={product.image} alt={product.title} height={'200px'} />
               <p>Price: ${product.price}</p>
               <p>Quantity: {product.quantity}</p>
-              
-              {/* Update product quantity */}
+
+              {/* Update quantity */}
               <button
                 className="update-button"
-                onClick={() => updateCartproduct(product.id, product.quantity + 1)}
+                onClick={() => updateCartProduct(product.id, product.quantity + 1)}
               >
                 +1
               </button>
               <button
                 className="update-button"
-                onClick={() => updateCartproduct(product.id, product.quantity - 1)}
-                disabled={product.quantity === 1} // Disable if quantity is 1
+                onClick={() => updateCartProduct(product.id, product.quantity - 1)}
+                disabled={product.quantity === 1} // Stop if quantity is 1
               >
                 -1
               </button>
-              
+
               {/* Remove product */}
               <button
                 className="remove-button"
@@ -59,7 +57,9 @@ function Cart({cart, handleRemove, updateCartProduct}) {
           <div className="cart-total">
             <h3>Total: ${calculateTotal().toFixed(2)}</h3>
           </div>
-          <button className="checkout-button" onClick={handleProceedToCheckout}>Proceed to Checkout</button>
+          <button className="checkout-button" onClick={handleProceedToCheckout}>
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>
